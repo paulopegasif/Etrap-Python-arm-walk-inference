@@ -9,8 +9,6 @@ import Camera
 import ServicesAPI
 
 
-
-
 pwm = Adafruit_PCA9685.PCA9685()
 
 nomeServo = ""
@@ -95,8 +93,6 @@ def arm_position():
 
 
 
-
-
 		#time.sleep(3)
 		#print(j)
 	value = [375, 500, 500, 210, 450]
@@ -123,7 +119,7 @@ count = 0
 var_exit = 0
 
 # Initial Position
-f = open('/home/pi/Desktop/Planilha.json')
+f = open('Planilha.json')
   
 # returns JSON object as 
 # a dictionary
@@ -138,6 +134,9 @@ for i in inicio:
 while(1):
 	arm_position()
 	#Upload das fotos para o TrapSystem
+	
+
+
 		
 
 

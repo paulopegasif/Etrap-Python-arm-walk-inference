@@ -5,6 +5,7 @@ import os
 # Conversao da imagem para base64
 from PIL import Image
 import base64
+import shutil # Move img
 
 
 def convert_image_to_base64(image_path):
@@ -77,6 +78,23 @@ def fazer_inferencia(id_image, codigo_modelo, aspect_default_img):
         print("### Ocorreu um erro ao realizar a inferência! ###")
 
     print("\n")
+
+def change_dir(dirImg, dirSends, imgPath):
+    # Cria o diretório "img_sends" se não existir
+    if not os.path.exists(dirSends):
+        os.makedirs(dirSends)
+
+    # Obtém o nome do arquivo da imagem
+    nome_arquivo = os.path.basename(image_path)
+
+    # Move a imagem para o diretório "img_sends"
+    img_sends_path = os.path.join(dirSends, nome_arquivo)
+    shutil.move(image_path, img_sends_path)
+
+    print(f"A imagem foi movida para {img_sends_path}")
+    
+
+
 
 
 
