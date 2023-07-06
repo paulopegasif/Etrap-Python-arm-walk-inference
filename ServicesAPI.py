@@ -79,7 +79,7 @@ def fazer_inferencia(id_image, codigo_modelo, aspect_default_img):
 
     print("\n")
 
-def change_dir(dirImg, dirSends, imgPath):
+def change_dir(dirImg, dirSends, image_path):
     # Cria o diretório "img_sends" se não existir
     if not os.path.exists(dirSends):
         os.makedirs(dirSends)

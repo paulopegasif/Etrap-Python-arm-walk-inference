@@ -64,6 +64,8 @@ class Camera:
 
         
         #Change Directory
+        if not os.path.exists(img):
+            os.makedirs(img)
         directory = os.path.abspath("../img")
         img_conv.save(os.path.join(directory, img_string_png))
         self.imageIdCount+=1
