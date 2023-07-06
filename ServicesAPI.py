@@ -52,6 +52,8 @@ def cadastrar_imagem(api_url, image_path, trap_code):
         print(f"Status Code: {response.status_code}")
         print(response.text) # resposta completa
         print("### Ocorreu um erro ao cadastrar a imagem! ###")
+        
+    return id_image
 
 
 

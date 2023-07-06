@@ -2,16 +2,22 @@
 from __future__ import division
 import time
 import Adafruit_PCA9685
-from picamera import PiCamera
 import os
 import json
 import Camera
-import ServicesAPI
+from ServicesAPI import *
 
 
 pwm = Adafruit_PCA9685.PCA9685()
 
 nomeServo = ""
+
+# ServicesAPI config
+api_url = 'http://10.5.7.165:8000/ws-rest/trapimage'
+headers = {'Content-Type': 'application/json'}
+trap_code = 63
+codigo_modelo = 12
+aspect_default_img = 0
 
 # Camera object context
 cam = Camera.Camera()
@@ -89,6 +95,8 @@ def arm_position():
 					time.sleep(3)
 		#Codigo para Tirar Foto
 		cam.startPlateCapture(j)
+		#break #------- PARA TESTE
+		
 		
 
 
@@ -130,17 +138,43 @@ for i in inicio:
 		time.sleep(5)
 
 
-		
-while(1):
+##### PARA TESTE ########
+'''
+test_count = 0
+while test_count < 1:
 	arm_position()
-	#Upload das fotos para o TrapSystem
+	print("terminou")
+	test_count+=1
+test_count = 0
+'''
+
+
+while (1):
+	arm_position()
+	# Vai iterar 320 vezes
+
+
+
+
+print("### Upload das fotos para o TrapSystem ###")
 	
-
-
-		
-
-
-
+	
+#Upload das fotos para o TrapSystem
+img_dir = os.path.abspath("img")  # Caminho absoluto para a pasta "img"
+for filename in os.listdir(img_dir):
+    if filename.endswith(".jpg"):  # Verificar apenas arquivos de imagem com extensão .jpg
+        image_path = os.path.join(img_dir, filename)
+        base64_image = convert_image_to_base64(image_path)
+        
+        # Cadastrar a imagem
+        id_image = cadastrar_imagem(api_url, image_path, trap_code)
+        
+        # Fazer a inferência
+        #id_image = response_data["id"]  # Obter o ID da imagem cadastrada
+        fazer_inferencia(id_image, codigo_modelo, aspect_default_img)
+        
+        # Mover a imagem para a pasta "img_sends"
+        change_dir(img_dir, "img_sends", image_path)
 	
 		
 		

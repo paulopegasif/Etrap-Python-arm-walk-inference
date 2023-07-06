@@ -29,7 +29,6 @@ class Camera:
         self.picam.configure(self.picam_config)
 
 
-
     def startPlateCapture(self, trapNum):
         ''' PiCamera2 frame capture loop with Opencv2 image interface '''
         self.trapNum = trapNum
@@ -53,20 +52,22 @@ class Camera:
         ''' Take a image shot from opencv camera module (picamera numpy array)
             @arg img ==> Numpy array
         '''
-            # Get image from frame numpy array
+        # Get image from frame numpy array
         img_conv = Image.fromarray(img)
         
         
         
         # Saving image file (original)
-        img_string = ("imagem", self.trapNum, "-", self.imageIdCount)
+        img_string = "imagem" + str(self.trapNum)
         img_string_png = img_string + ".png"
 
         
         #Change Directory
-        if not os.path.exists(img):
-            os.makedirs(img)
-        directory = os.path.abspath("../img")
+        script_dir = os.path.dirname(__file__)
+        directory = os.path.join(script_dir, "img")
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+            
         img_conv.save(os.path.join(directory, img_string_png))
         self.imageIdCount+=1
 
@@ -87,3 +88,14 @@ class Camera:
         
         cv2.imwrite(os.path.join(directory, img_cropped_name), img_cropped)
         print("[*] Image Successfully Cropped!")
+        
+        # Removing Original Img
+        for filename in os.listdir(directory):
+            if not filename.endswith("_cropped.jpg"):
+                file_path = os.path.join(directory, filename)
+                os.remove(file_path)
+                print(f"Removed: {file_path}")
+
+
+
+        
