@@ -29,6 +29,8 @@ order = [2,1,0,3,4]
 inicio = [1,2,0,4,3]
 
 
+
+flag = False
 # Alternatively specify a different address and/or bus:
 #pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
@@ -96,6 +98,9 @@ def arm_position():
 		#Codigo para Tirar Foto
 		cam.startPlateCapture(j)
 		#break #------- PARA TESTE
+
+		if j == 320:
+			flag == True
 		
 		
 
@@ -152,6 +157,8 @@ test_count = 0
 while (1):
 	arm_position()
 	# Vai iterar 320 vezes
+	if flag == True:
+		break
 
 
 
