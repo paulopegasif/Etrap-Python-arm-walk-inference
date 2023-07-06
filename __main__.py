@@ -30,7 +30,7 @@ inicio = [1,2,0,4,3]
 
 
 
-flag = False
+
 # Alternatively specify a different address and/or bus:
 #pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
@@ -50,7 +50,7 @@ def set_servo_pulse(channel, pulse):
     pwm.set_pwm(channel, 0, pulse)
     
 def arm_position():
-	
+	flag = False
 	value = [375, 500, 500, 210, 450]
 	#raw_input()
 	#Clear
